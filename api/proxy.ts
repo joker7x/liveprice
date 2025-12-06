@@ -1,6 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+// Vercel Node serverless handler without @vercel/node types to avoid TypeScript missing-module error
+export default async function handler(req: any, res: any) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'Missing GEMINI_API_KEY environment variable' });
@@ -11,6 +10,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Update endpoint & payload to match the exact Gemini/Generative AI API you need.
     const response = await fetch('https://api.generativeai.google/v1beta2/models/YOUR_MODEL:generate', {
       method: 'POST',
       headers: {
